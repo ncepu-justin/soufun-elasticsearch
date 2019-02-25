@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CORS 示例</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+</head>
+<body>
+<h1>cors</h1>
+</body>
+
+<script>
+    $(document).ready(function(){
+        // Ajax 跨域 Delete 请求
+        $.delete( "http://40.73.32.247:80/data_analysis/user/get/info?access_token=c0ddf99a-db1d-4135-bb0d-42018f200283", function( data ) {
+            alert( data );
+            $( "#message" ).html( data );
+        });
+    });
+</script>
+
+</html>

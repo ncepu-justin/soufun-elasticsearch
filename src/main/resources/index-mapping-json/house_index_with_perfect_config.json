@@ -1,0 +1,104 @@
+{
+  "settings": {
+    "number_of_replicas": 0,
+    "number_of_shards": 5,            //每个分片大小尽量控制在10G-20G，保证索引性能
+    "index.store.type": "niofs",  //调整索引存储类型--nio异步
+    "index.query.default_field": "title",   //默认查询字段使用titile
+    "index.unassigned.node_left.delayed_timeout": "5m"  //指定延迟恢复分片
+  },
+
+
+  "mappings": {
+    "house": {
+      "dynamic": "strict",  //指定索引结构类型，不允许修改，保证性能
+      "_all": {             //禁止all字段，防止所有字段连接起来做全文索引，节省索引空间，提升速度，在6.0以上版本es 该字段已被废弃
+        "enabled": false
+      },
+      "properties": {
+        "houseId": {
+          "type": "long"
+        },
+        "title": {
+          "type": "text",
+          "index": "analyzed",
+          "analyzer": "ik_smart",
+          "search_analyzer": "ik_smart"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "area": {
+          "type": "integer"
+        },
+        "createTime": {
+          "type": "date",
+          "format": "strict_date_optional_time||epoch_millis"
+        },
+        "lastUpdateTime": {
+          "type": "date",
+          "format": "strict_date_optional_time||epoch_millis"
+        },
+        "cityEnName": {
+          "type": "keyword"
+        },
+        "regionEnName": {
+          "type": "keyword"
+        },
+        "direction": {
+          "type": "integer"
+        },
+        "distanceToSubway": {
+          "type": "integer"
+        },
+        "subwayLineName": {
+          "type": "keyword"
+        },
+        "subwayStationName": {
+          "type": "keyword"
+        },
+        "tags": {
+          "type": "text"
+        },
+        "street": {
+          "type": "keyword"
+        },
+        "district": {
+          "type": "keyword"
+        },
+        "description": {
+          "type": "text",
+          "index": "analyzed",
+          "analyzer": "ik_smart",
+          "search_analyzer": "ik_smart"
+        },
+        "layoutDesc" : {
+          "type": "text",
+          "index": "analyzed",
+          "analyzer": "ik_smart",
+          "search_analyzer": "ik_smart"
+        },
+        "traffic": {
+          "type": "text",
+          "index": "analyzed",
+          "analyzer": "ik_smart",
+          "search_analyzer": "ik_smart"
+        },
+        "roundService": {
+          "type": "text",
+          "index": "analyzed",
+          "analyzer": "ik_smart",
+          "search_analyzer": "ik_smart"
+        },
+        "rentWay": {
+          "type": "integer"
+        },
+        "suggest": {
+          "type": "completion"
+        },
+        "location": {
+          "type": "geo_point"
+        }
+      }
+    }
+  }
+}
